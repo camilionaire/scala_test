@@ -36,20 +36,10 @@ object Qsort {
             }
         }
     }
-
-    def quickSort(low:Int, high:Int):Unit = {
-        if (low < high) {
-            if (high - low <= MINSIZE) {
-                bubbleSort(low, high)
-            } else {
-                val pivIndex = partition(low, high)
-                // printArray("Current Arr:") // this stuff is for troubleshooting
-                // println("Pivot pt: " + pivIndex)
-                quickSort(low, pivIndex - 1)
-                quickSort(pivIndex, high)
-            }
-        }
-    }
+    
+////////////////////////////////////////////////////////////////////////////////
+// These are two helper functions, partition and swap, works within class
+////////////////////////////////////////////////////////////////////////////////
 
     def partition(low:Int, high:Int):Int = {
         val pivot = a(high)
@@ -71,6 +61,29 @@ object Qsort {
         a(c) = temp
     }
 
+////////////////////////////////////////////////////////////////////////////////
+// This is the quicksort algorithm.  Got some help on it from:
+// https://www.programiz.com/dsa/quick-sort
+////////////////////////////////////////////////////////////////////////////////
+
+    def quickSort(low:Int, high:Int):Unit = {
+        if (low < high) {
+            if (high - low <= MINSIZE) {
+                bubbleSort(low, high)
+            } else {
+                val pivIndex = partition(low, high)
+                // printArray("Current Arr:") // this stuff is for troubleshooting
+                // println("Pivot pt: " + pivIndex)
+                quickSort(low, pivIndex - 1)
+                quickSort(pivIndex, high)
+            }
+        }
+    }
+
+////////////////////////////////////////////////////////////////////////////////
+// This is the non-recursive quicksort algorithm.  Got some help on it from:
+// https://www.geeksforgeeks.org/iterative-quick-sort/
+////////////////////////////////////////////////////////////////////////////////
     def quickSortNR(low:Int, high:Int) = {
         println("This is the quicksortNR.It goes from " + low + " to " + high)
     }
