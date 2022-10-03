@@ -25,8 +25,16 @@ object Qsort {
     }
 
     def bubbleSort(low:Int, high:Int) = {
-        println("This is the bubblesort.")
-        println("It goes from " + low + " to " + high)
+        // could have also used low to (high - 1)
+        for ( i <- Range(low, high)) {
+            for ( j <- Range(low, (high - i))) {
+                if (a(j) > a(j+1)) {
+                    val t = a(j)
+                    a(j) = a(j+1)
+                    a(j+1) = t
+                }
+            }
+        }
     }
 
     def quickSort(low:Int, high:Int) = {
@@ -38,7 +46,17 @@ object Qsort {
     }
 
     def verifyArray = {
-        println("Here we are verifying the array!!!")
+    
+        var failed = false
+        for (i <- 0 to (a.length - 2)) {
+            if (a(i) > a(i+1) && !failed) {
+                println("FAILED: a(" +i+ ")=" +a(i)+ ", a(" +(i+1)+ ")=" +a(i+1))
+                failed = true
+            }
+        }
+        if (!failed) {
+            println("Result verified!")
+        }
     }
 
 
@@ -49,14 +67,18 @@ object Qsort {
 
         createArray(N)
         printArray("Initial array:")
-        quickSort(0, N-1)
-        printArray("After quickSort:")
+        // quickSort(0, N-1)
+        // printArray("After quickSort:")
+        bubbleSort(0, N-1)
+        printArray("After BUBBLESORT")
         verifyArray
 
         createArray(N)
         printArray("Initial array:")
-        quickSortNR(0, N-1)
-        printArray("After quickSortNR:")
+        // quickSortNR(0, N-1)
+        // printArray("After quickSortNR:")
+        bubbleSort(0, N-1)
+        printArray("After BUBBLESORT")
         verifyArray
     }
 }
