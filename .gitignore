@@ -1,3 +1,5 @@
 
 # this is just the stuff that's made from compiling, I think...
 *.class
+
+*.tasty

@@ -5,7 +5,7 @@ object Hello {
         println("hello everyone")
     }
 
-    def scream() = {
+    def scream = {
       println("AHHHHHH!!! WHAT AM i DOING!!!")
       println("I HAVEN'T EVEN STARTED MAKING FLASH CARDS YET!! WTF!!!")
     }
