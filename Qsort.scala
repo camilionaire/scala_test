@@ -25,9 +25,9 @@ object Qsort {
     }
 
     def bubbleSort(low:Int, high:Int) = {
-        // could have also used low to (high - 1)
+        // could have also used low to (high - 1) or low until high
         for ( i <- Range(low, high)) {
-            for ( j <- Range(low, (high - i))) {
+            for ( j <- Range(low, (high + low - i))) {
                 if (a(j) > a(j+1)) {
                     val t = a(j)
                     a(j) = a(j+1)
@@ -37,21 +37,32 @@ object Qsort {
         }
     }
 
-    def quickSort(low:Int, high:Int) = {
+    def quickSort(low:Int, high:Int):Unit = {
+        if (low < high) {
+            if (high - low <= MINSIZE) {
+                bubbleSort(low, high)
+            } else {
+                val pivIndex = partition(low, high)
+                // printArray("Current Arr:") // this stuff is for troubleshooting
+                // println("Pivot pt: " + pivIndex)
+                quickSort(low, pivIndex - 1)
+                quickSort(pivIndex, high)
+            }
+        }
     }
 
     def partition(low:Int, high:Int):Int = {
-        var pi = high
-        var index = low
+        val pivot = a(high)
+        var i = low-1 // so -1?...
 
-        for (i <- low to high) {
-            if (a(i) < a(pi)) {
-                swapElements(i, index)
-                index += 1
+        for (j <- Range(low, high)) {
+            if (a(j) <= pivot) {
+                i += 1
+                swapElements(i, j)
             }
         }
-        swapElements(pi, index + 1)
-        return index + 1
+        swapElements(high, i + 1)
+        return i + 1
     }
 
     def swapElements(b:Int, c:Int) = {
@@ -65,7 +76,6 @@ object Qsort {
     }
 
     def verifyArray = {
-    
         var failed = false
         for (i <- 0 to (a.length - 2)) {
             if (a(i) > a(i+1) && !failed) {
@@ -94,10 +104,12 @@ object Qsort {
 
         createArray(N)
         printArray("Initial array:")
+        quickSort(0, N-1)
+        printArray("After quickSort:")
         // quickSortNR(0, N-1)
         // printArray("After quickSortNR:")
-        bubbleSort(0, N-1)
-        printArray("After BUBBLESORT")
+        // bubbleSort(0, N-1)
+        // printArray("After BUBBLESORT")
         verifyArray
     }
 }
