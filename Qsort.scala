@@ -38,7 +38,26 @@ object Qsort {
     }
 
     def quickSort(low:Int, high:Int) = {
-        println("This is the quicksort.It goes from " + low + " to " + high)
+    }
+
+    def partition(low:Int, high:Int):Int = {
+        var pi = high
+        var index = low
+
+        for (i <- low to high) {
+            if (a(i) < a(pi)) {
+                swapElements(i, index)
+                index += 1
+            }
+        }
+        swapElements(pi, index + 1)
+        return index + 1
+    }
+
+    def swapElements(b:Int, c:Int) = {
+        val temp = a(b)
+        a(b) = a(c)
+        a(c) = temp
     }
 
     def quickSortNR(low:Int, high:Int) = {
