@@ -136,18 +136,12 @@ object Qsort {
         printArray("Initial array:")
         quickSort(0, N-1)
         printArray("After quickSort:")
-        // bubbleSort(0, N-1)
-        // printArray("After BUBBLESORT")
         verifyArray
 
         createArray(N)
         printArray("Initial array:")
-        // quickSort(0, N-1)
-        // printArray("After quickSort:")
         quickSortNR(0, N-1)
         printArray("After quickSortNR:")
-        // bubbleSort(0, N-1)
-        // printArray("After BUBBLESORT")
         verifyArray
     }
 }
