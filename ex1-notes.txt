@@ -1,0 +1,20 @@
+Name: Camilo Schaser-Hughes
+Date: October 3, 2022
+Class: CS558, Programming Languages
+
+Notes:
+
+Status: 
+At this moment, the Hello2 and Qsort programs all appear to be working.
+The quicksort calls bubble sort for array size under 10, the non-
+recursive quicksort does not though, as per instructions.  Still need 
+to comment work though.
+
+Scala Learning Experience:
+The set up was really hard for me.  As it stands, I'm writing and compiling
+with Scala3 and then pushing it up to git, pulling it onto the psu server and
+making sure it compiles with Scala2 and Java8 from there.  I spent many hours
+and failed getting Scala2/Java8 to compile on VSCode.
+The actual scala programming has been delightful.  It reminds me a lot of
+Haskel but easier learning curve.  I wish I had more time to learn the ins and
+outs.

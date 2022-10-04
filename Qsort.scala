@@ -1,3 +1,5 @@
+// got this from: https://www.geeksforgeeks.org/stack-in-scala/
+import scala.collection.mutable.Stack
 
 object Qsort {
     // thest two are just copied over
@@ -85,7 +87,30 @@ object Qsort {
 // https://www.geeksforgeeks.org/iterative-quick-sort/
 ////////////////////////////////////////////////////////////////////////////////
     def quickSortNR(low:Int, high:Int) = {
-        println("This is the quicksortNR.It goes from " + low + " to " + high)
+        var s = Stack[Int]()
+
+        s.push(low)
+        s.push(high)
+
+        while (! s.isEmpty) {
+            val h = s.pop
+            val l = s.pop
+
+            val p = partition(l, h)
+
+            if ((p-1) > l) {
+                s.push(l)
+                s.push(p-1)
+            }
+
+            if ((p+1) < h) {
+                s.push(p+1)
+                s.push(h)
+            }
+        }
+
+
+
     }
 
     def verifyArray = {
@@ -109,18 +134,18 @@ object Qsort {
 
         createArray(N)
         printArray("Initial array:")
-        // quickSort(0, N-1)
-        // printArray("After quickSort:")
-        bubbleSort(0, N-1)
-        printArray("After BUBBLESORT")
+        quickSort(0, N-1)
+        printArray("After quickSort:")
+        // bubbleSort(0, N-1)
+        // printArray("After BUBBLESORT")
         verifyArray
 
         createArray(N)
         printArray("Initial array:")
-        quickSort(0, N-1)
-        printArray("After quickSort:")
-        // quickSortNR(0, N-1)
-        // printArray("After quickSortNR:")
+        // quickSort(0, N-1)
+        // printArray("After quickSort:")
+        quickSortNR(0, N-1)
+        printArray("After quickSortNR:")
         // bubbleSort(0, N-1)
         // printArray("After BUBBLESORT")
         verifyArray
