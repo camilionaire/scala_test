@@ -1,10 +1,23 @@
+////////////////////////////////////////////////////////////////////////////////
+// Class: CS558 Programming Languages, Fall 2022
+// Assignment: Exercise 1
+// Name: Camilo Schaser-Hughes
+// Date: October 4, 2022
+// Program which creates two array and then quick sorts either recursively or
+// iteratively.
+////////////////////////////////////////////////////////////////////////////////
+
 // got this from: https://www.geeksforgeeks.org/stack-in-scala/
 import scala.collection.mutable.Stack
+
+////////////////////////////////////////////////////////////////////////////////
+// Main Object Declaration
+////////////////////////////////////////////////////////////////////////////////
 
 object Qsort {
     // thest two are just copied over
     val MINSIZE = 10 // threshold for switch to bub sort
-    var a:Array[Int] = _ // the array, I guess just empty?
+    var a:Array[Int] = _ // the array, just empty
 
     def createArray(N:Int) = {
         val r = scala.util.Random
@@ -16,6 +29,11 @@ object Qsort {
 
     }
 
+////////////////////////////////////////////////////////////////////////////////
+// This strings together all the elements of the array, and then prints
+// the msg along with the array in String form.
+////////////////////////////////////////////////////////////////////////////////
+
     def printArray(msg:String) = {
         var fullmsg = msg
         
@@ -25,6 +43,10 @@ object Qsort {
 
         println(fullmsg)
     }
+
+////////////////////////////////////////////////////////////////////////////////
+// This bubble sorts a segment of an array.
+////////////////////////////////////////////////////////////////////////////////
 
     def bubbleSort(low:Int, high:Int) = {
         // could have also used low to (high - 1) or low until high
@@ -40,14 +62,17 @@ object Qsort {
     }
     
 ////////////////////////////////////////////////////////////////////////////////
-// These are two helper functions, partition and swap, works within class
+// These are two helper functions, partition and swap, works within class.
 ////////////////////////////////////////////////////////////////////////////////
 
     def partition(low:Int, high:Int):Int = {
         val pivot = a(high)
-        var i = low-1 // so -1?...
+        var i = low-1 // so -1 for full array
 
         for (j <- Range(low, high)) {
+            // if an element is less than the pivot
+            // it gets put to the left. if i!=j
+            // then it switches with a smaller one.
             if (a(j) <= pivot) {
                 i += 1
                 swapElements(i, j)
@@ -70,12 +95,10 @@ object Qsort {
 
     def quickSort(low:Int, high:Int):Unit = {
         if (low < high) {
-            if (high - low <= MINSIZE) {
+            if (high - low < MINSIZE) {
                 bubbleSort(low, high)
             } else {
                 val pivIndex = partition(low, high)
-                // printArray("Current Arr:") // this stuff is for troubleshooting
-                // println("Pivot pt: " + pivIndex)
                 quickSort(low, pivIndex - 1)
                 quickSort(pivIndex, high)
             }
@@ -86,19 +109,26 @@ object Qsort {
 // This is the non-recursive quicksort algorithm.  Got some help on it from:
 // https://www.geeksforgeeks.org/iterative-quick-sort/
 ////////////////////////////////////////////////////////////////////////////////
+
     def quickSortNR(low:Int, high:Int) = {
         var s = Stack[Int]()
 
+        // starts with the low / high on the stack.
         s.push(low)
         s.push(high)
 
+        // while we're not done
         while (! s.isEmpty) {
+            // we pop the current span of the array
             val h = s.pop
             val l = s.pop
 
+            // we partition it
             val p = partition(l, h)
 
+            // if not the "base case"
             if ((p-1) > l) {
+                // push the new span
                 s.push(l)
                 s.push(p-1)
             }
@@ -108,10 +138,12 @@ object Qsort {
                 s.push(h)
             }
         }
-
-
-
     }
+
+////////////////////////////////////////////////////////////////////////////////
+// This is the verify function, it just iterates through the array and checks
+// to make sure the element afterwards is not smaller.
+////////////////////////////////////////////////////////////////////////////////
 
     def verifyArray = {
         var failed = false
@@ -126,6 +158,12 @@ object Qsort {
         }
     }
 
+////////////////////////////////////////////////////////////////////////////////
+// This is the main function, it checks / asserts the argument.
+// It then creates a random array of that size, prints it, quick sorts it.
+// Then creates and prints another array to non-recursively quick sort it and
+// print it again.
+////////////////////////////////////////////////////////////////////////////////
 
     def main(argv: Array[String]) = {
         assert(argv.length > 0)
